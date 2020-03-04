@@ -1,11 +1,11 @@
 FROM lsiobase/nginx:3.11
 
 # set version label
-ARG BUILD_DATE
-ARG VERSION
-ARG BARCODEBUDDY_RELEASE
-LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
-LABEL maintainer="alex-phillips, homerr"
+#ARG BUILD_DATE
+#ARG VERSION
+#ARG BARCODEBUDDY_RELEASE
+#LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
+#LABEL maintainer="alex-phillips, homerr"
 
 RUN \
  echo "**** install build packages ****" && \
@@ -25,12 +25,15 @@ RUN \
 	# php7-tokenizer && \
  echo "**** install barcodebuddy ****" && \
  mkdir -p /app/barcodebuddy && \
+ echo "**** barcodebuddy folder created ****" && \
  if [ -z ${BARCODEBUDDY_RELEASE+x} ]; then \
 	BARCODEBUDDY_RELEASE=$(curl -sX GET "https://api.github.com/repos/Forceu/barcodebuddy/releases/latest" \
 	| awk '/tag_name/{print $4;exit}' FS='[""]'); \
+#        echo "**** if statement evaluated true ****" \
  fi && \
+ #echo BARCODEBUDDY_RELEASE && \
  curl -o \
-	/tmp/grocy.tar.gz -L \
+	/tmp/barcodebuddy.tar.gz -L \
 	"https://github.com/Forceu/barcodebuddy/archive/${BARCODEBUDDY_RELEASE}.tar.gz" && \
  tar xf \
 	/tmp/barcodebuddy.tar.gz -C \
@@ -50,7 +53,7 @@ RUN \
 	/tmp/*
 
 # copy local files
-COPY root/ /
+#COPY root/ /
 
 # ports and volumes
 EXPOSE 80
