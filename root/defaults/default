@@ -2,7 +2,7 @@
 server {
   listen 80 default_server;
   listen 443 ssl;
-  root /app/barcodebuddy/public;
+  root /app/barcodebuddy;
   index index.php index.html index.htm;
   server_name _;
   ssl_certificate /config/keys/cert.crt;
@@ -20,5 +20,11 @@ server {
     fastcgi_pass 127.0.0.1:9000;
     fastcgi_index index.php;
     include /etc/nginx/fastcgi_params;
+  }
+  location ~ /barcodebuddy.db {
+    deny all;
+  }
+  location ~ /\.ht {
+    deny all;
   }
 }
