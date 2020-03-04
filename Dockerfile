@@ -3,7 +3,7 @@ FROM lsiobase/nginx:3.11
 # set version label
 #ARG BUILD_DATE
 #ARG VERSION
-#ARG BARCODEBUDDY_RELEASE
+ARG BARCODEBUDDY_RELEASE
 #LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 #LABEL maintainer="alex-phillips, homerr"
 
@@ -53,7 +53,7 @@ RUN \
 	/tmp/*
 
 # copy local files
-#COPY root/ /
+COPY root/ /
 
 # ports and volumes
 EXPOSE 80
