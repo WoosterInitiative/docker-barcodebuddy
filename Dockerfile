@@ -30,7 +30,7 @@ RUN \
  if [ -z ${BARCODEBUDDY_RELEASE+x} ]; then \
 	BARCODEBUDDY_RELEASE=$(curl -sX GET "https://api.github.com/repos/Forceu/barcodebuddy/releases/latest" \
 	| awk '/tag_name/{print $4;exit}' FS='[""]'); \
-#        echo "**** if statement evaluated true ****" \
+    # echo "**** if statement evaluated true ****" && \
  fi && \
  echo "BARCODEBUDDY_RELEASE=${BARCODEBUDDY_RELEASE}" && \
  curl -o \
@@ -39,7 +39,7 @@ RUN \
  tar xf \
 	/tmp/barcodebuddy.tar.gz -C \
 	/app/barcodebuddy/ --strip-components=1 && \
- chown abc:abc -R /app/barcodebuddy && \
+ # chown abc:abc -R /app/barcodebuddy && \
  # cp -R /app/grocy/data/plugins \
 	# /defaults/plugins && \
  # echo "**** install composer packages ****" && \
@@ -59,4 +59,4 @@ COPY root/ /
 
 # ports and volumes
 EXPOSE 80
-VOLUME /app/barcodebuddy
+# VOLUME /app/barcodebuddy
