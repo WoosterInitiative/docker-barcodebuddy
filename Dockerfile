@@ -1,11 +1,11 @@
 FROM lsiobase/nginx:3.11
 
 # set version label
-#ARG BUILD_DATE
-#ARG VERSION
+ARG BUILD_DATE
+ARG VERSION
 ARG BARCODEBUDDY_RELEASE
-#LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
-#LABEL maintainer="alex-phillips, homerr"
+LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
+LABEL maintainer="alex-phillips, homerr"
 
 RUN \
  echo "**** install build packages ****" && \
@@ -26,7 +26,7 @@ RUN \
  echo "**** install barcodebuddy ****" && \
  mkdir -p /app/barcodebuddy && \
 # chown abc:abc -R /app/barcodebuddy && \
- echo "**** barcodebuddy folder created ****" && \
+ # echo "**** barcodebuddy folder created ****" && \
  if [ -z ${BARCODEBUDDY_RELEASE+x} ]; then \
 	BARCODEBUDDY_RELEASE=$(curl -sX GET "https://api.github.com/repos/Forceu/barcodebuddy/releases/latest" \
 	| awk '/tag_name/{print $4;exit}' FS='[""]'); \
@@ -45,7 +45,7 @@ RUN \
  # echo "**** install composer packages ****" && \
  # composer install -d /app/grocy --no-dev && \
  # echo "**** install yarn packages ****" && \
- # cd /app/grocy && \
+ # cd /app/barcodebuddy && \
  # yarn && \
  echo "**** cleanup ****" && \
  apk del --purge \
@@ -59,4 +59,4 @@ COPY root/ /
 
 # ports and volumes
 EXPOSE 80
-# VOLUME /app/barcodebuddy
+VOLUME /config

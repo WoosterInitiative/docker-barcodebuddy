@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "**** starting websockets server ****"
+php wsserver.php
